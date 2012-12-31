@@ -22,7 +22,7 @@
  * =dir     - is directory
  * !file    - not file
  * !dir     - not a directory
- * 
+ * .ext     - file extension (replace ext with required extension)
  */
  
 $Config=array(
