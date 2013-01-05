@@ -18,8 +18,6 @@
  * all      - all files and directories
  * file     - all files
  * dir      - all directories
- * =file    - is file
- * =dir     - is directory
  * !file    - not file
  * !dir     - not a directory
  * .ext     - file extension (replace ext with required extension)
