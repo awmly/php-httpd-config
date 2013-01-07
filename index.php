@@ -4,11 +4,17 @@
  * php-httpd-config
  * 
  * A PHP based http request handler
+ * Handles all unrouted traffic not handled by traditional apache httpd.conf
+ * Allows for instant sites without any apache configuring and restarting
+ * Simply create a folder for the domain required in the directory specified below and the site is up
+ * Adding a copy of php-httpd-config.php to the domain route allows for htaccess like mod-rewriting
  * 
+ * @author Andrew Womersley
+ * @author aw1.me
  */
 
-/** Get requested domain */
-$domain='/var/www/php-httpd-config.aw1.me/vhosts/'.$_SERVER['SERVER_NAME'];
+/** Set requested domain path */
+$domain='/var/www/vhosts/'.$_SERVER['SERVER_NAME'].'/html';
 
 /** Check domain path exists */
 if(!is_dir($domain)){ echo "Error: Domain not found"; exit; }
@@ -32,8 +38,7 @@ switch($ext) {
     case "ico":     $ctype="image/x-icon"; break;
     case "html":    $ctype="text/html"; break;
     case "htm":     $ctype="text/html"; break;
-    case "txt":     $ctype="text/plain"; break;
-    default:        $ctype="application/force-download";
+    default:        $ctype="text/plain"; break;
 }
 
 /** Load config file */
@@ -79,7 +84,12 @@ if(is_array($Config)){
 }
 
 /** Check file exists - else load default index */
-if(!is_file($domain.$path)) $path=(is_file($domain.'/index.php')) ? '/index.php' : '/index.html';
+if(!is_file($domain.$path)){
+    if(is_file($domain.'/index.php')) $path='/index.php';
+    else if(is_file($domain.'/index.html')) $path='/index.html';
+    else if(is_file($domain.'/index.htm')) $path='/index.htm';
+    else echo "No file: ".$domain.$path;
+}
 
 /** Get extension for dispatch file */
 $ext=strtolower(substr(strrchr($path,"."),1));
@@ -108,8 +118,8 @@ if($ext=='php'){
     /** Output content */
     echo $c;
 
-}else{
-    
+}else if($ext){
+    echo "*";
     /** Set headers */
     header("Content-Length: ".filesize($domain.$path));
     header("Content-Type: ".$ctype);
