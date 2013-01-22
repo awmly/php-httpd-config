@@ -85,10 +85,10 @@ if(is_array($Config)){
 
 /** Check file exists - else load default index */
 if(!is_file($domain.$path)){
-    if(is_file($domain.'/index.php')) $path='/index.php';
+    if(is_file($domain.'/index.php'))       $path='/index.php';
     else if(is_file($domain.'/index.html')) $path='/index.html';
-    else if(is_file($domain.'/index.htm')) $path='/index.htm';
-    else echo "No file: ".$domain.$path;
+    else if(is_file($domain.'/index.htm'))  $path='/index.htm';
+    else                                    echo "No file: ".$domain.$path;
 }
 
 /** Get extension for dispatch file */
@@ -119,7 +119,7 @@ if($ext=='php'){
     echo $c;
 
 }else if($ext){
-    echo "*";
+   
     /** Set headers */
     header("Content-Length: ".filesize($domain.$path));
     header("Content-Type: ".$ctype);
