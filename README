@@ -1,0 +1,12 @@
+/**
+ * php-httpd-config
+ * 
+ * A PHP based http request handler
+ * Handles all unrouted traffic not handled by traditional apache httpd.conf
+ * Allows for instant sites without any apache configuring and restarting
+ * Simply create a folder for the domain required in the directory specified below and the site is up
+ * Adding a copy of php-httpd-config.php to the domain route allows for htaccess like mod-rewriting
+ * 
+ * @author Andrew Womersley
+ * @author aw1.me
+ */
